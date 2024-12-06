@@ -340,8 +340,8 @@ function isPalindrome(str) {
  *   findLongestWord('A long and winding road') => 'winding'
  *   findLongestWord('No words here') => 'words'
  */
-function findLongestWord(/* sentence */) {
-  throw new Error('Not implemented');
+function findLongestWord(sentence) {
+  return sentence.split(' ').sort((a, b) => (a.length > b.length ? -1 : 1))[0];
 }
 
 /**
@@ -463,8 +463,17 @@ function extractEmails(str) {
  *    => 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
  *
  */
-function encodeToRot13(/* str */) {
-  throw new Error('Not implemented');
+function encodeToRot13(str) {
+  const encodeChar = (char) => {
+    const minCharCode = char === char.toLowerCase() ? 97 : 65;
+    const encoded = ((char.charCodeAt() - minCharCode + 13) % 26) + minCharCode;
+    return String.fromCharCode(encoded);
+  };
+
+  return str
+    .split('')
+    .map((char) => (char.match(/^[a-zA-Z]+$/) ? encodeChar(char) : char))
+    .join('');
 }
 
 /**
